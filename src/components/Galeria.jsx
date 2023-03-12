@@ -1,26 +1,23 @@
 import "../assets/css/galeria.css";
-import { useContext } from "react";
-import Heart from "./Heart";
+import React, { useContext } from "react";
 import Context from "../Context";
+import Heart from "./Heart";
 
 export default function Home() {
+  const {photo, setPhoto} = useContext(Context);
 
-  const {photo,setPhoto} = useContext (Context);
-
-  const Like_Click = (id) => {
-    const photo_id = photo.findIndex((e)=> e.id === id);
-    photo[photo_id].liked = !photo[photo_id].liked;
+  const Liked_Click = (id) => {
+    const indexPhoto = photo.findIndex((e) => e.id === id);
+    photo[indexPhoto].liked = !photo[indexPhoto].liked;
     setPhoto([...photo]);
   };
 
-
-
   return (
     <div className="galeria grid-columns-5 p-3">
-      {photo.map(e => (
-        <div key={e.id} className='foto' style={{backgroundImage:`url(${e.src.tiny})`}} >
-          <Heart filled={(e.liked)} onClick={() => Like_Click(e.id)} />
-          <p>{e.alt}</p>
+      {photo.map(fotos => (
+        <div key={fotos.id} className='foto' style={{backgroundImage:`url(${fotos.src.tiny})`}} >
+          <Heart filled={(fotos.liked)} onClick={() => Liked_Click(fotos.id)} />
+          <p>{fotos.alt}</p>
         </div>
       ))}
     </div>

@@ -1,23 +1,20 @@
 import "./styles.css";
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Context from "./Context";
 import Navbar from "./components/Navbar";
 import Home from "./views/Home";
 import Favoritos from "./views/Favoritos";
-
+import React, { useState, useEffect } from "react";
+import Context from "./Context";
 
 export default function App() {
- 
-  
-  const [fotos, setFotos] = useState([]);
-  const estadoCompartido = {fotos, setFotos};
-  
+
+  const [photo, setPhoto] = useState([]);
+  const compartirFotos = {photo, setPhoto};
+
   const fotosApi = async () => {
-    const responseFotos = await fetch("/fotos.json");
-    const responseFotosJSON = await responseFotos.json();
-    setFotos(responseFotosJSON.photos)
+    const res = await fetch('/fotos.json');
+    const resFotos = await res.json();
+    setPhoto(resFotos.photos)
   }
 
   useEffect(() => {
@@ -26,15 +23,15 @@ export default function App() {
 
   return (
     <div className="App">
-      <Context.Provider value={estadoCompartido}>
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/favoritos" element={<Favoritos />} />
-          </Routes>
-        </BrowserRouter>
-      </Context.Provider>      
+      <Context.Provider value={compartirFotos}>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/favoritos" element={<Favoritos />} />
+        </Routes>
+      </BrowserRouter>
+      </Context.Provider>
     </div>
   );
 }
