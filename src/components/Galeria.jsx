@@ -14,10 +14,10 @@ export default function Home() {
 
   return (
     <div className="galeria grid-columns-5 p-3">
-      {photo.map(fotos => (
-        <div key={fotos.id} className='foto' style={{backgroundImage:`url(${fotos.src.tiny})`}} >
-          <Heart filled={(fotos.liked)} onClick={() => Liked_Click(fotos.id)} />
-          <p>{fotos.alt}</p>
+      {photo.map(BDfotos => (
+        <div key={BDfotos.id} className='foto' style={{backgroundImage:`url(${BDfotos.src.tiny})`}} >
+          <Heart filled={(BDfotos.liked)} onClick={() => Liked_Click(BDfotos.id)} />
+          <p>{BDfotos.alt}</p>
         </div>
       ))}
     </div>

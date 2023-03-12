@@ -2,33 +2,33 @@ import "./styles.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./views/Home";
-import Favoritos from "./views/Favoritos";
+import Favorites from "./views/Favorites";
 import React, { useState, useEffect } from "react";
 import Context from "./Context";
 
 export default function App() {
 
   const [photo, setPhoto] = useState([]);
-  const compartirFotos = {photo, setPhoto};
+  const LikePhoto = {photo, setPhoto};
 
-  const fotosApi = async () => {
-    const res = await fetch('/fotos.json');
-    const resFotos = await res.json();
-    setPhoto(resFotos.photos)
+  const ApiPhoto = async () => {
+    const res = await fetch('/BDfotos.json');
+    const resPhoto = await res.json();
+    setPhoto(resPhoto.photos)
   }
 
   useEffect(() => {
-    fotosApi()
+    ApiPhoto()
   }, [])
 
   return (
     <div className="App">
-      <Context.Provider value={compartirFotos}>
+      <Context.Provider value={LikePhoto}>
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/favoritos" element={<Favoritos />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </BrowserRouter>
       </Context.Provider>
